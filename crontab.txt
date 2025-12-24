@@ -1,0 +1,49 @@
+crontab command: Used to manage user's scheduled jobs (edit, list, remove).
+cron daemon: The background service that continuously checks and runs scheduled jobs
+
+Crontab File Format (5 Time Fields):
+* * * * * command_to_run
+Minute:       0-59
+Hour:         0-23 (24-hour format)
+Day of Month: 1-31
+Month:        1-12 (or names like JAN)
+Day of Week:  0-7 (0 or 7 is Sunday, or names like SUN) 
+
+0 2 * * * /path/to/backup.sh      : Runs backup.sh daily at 2:00 AM.
+*/15 * * * * /path/to/check.sh    : Runs check.sh every 15 minutes.
+@daily /path/to/report.sh         : Runs report.sh once a day (midnight). 
+
+Common Commands:
+crontab -e: Edit your crontab file.
+crontab -l: List your current cron jobs.
+crontab -r: Remove your crontab file (all jobs). 
+
+Eg: 
+
+1. At every 5th minute
+
+*/5 * * * * /path/to/script.sh
+
+2. At 00:00 on Thursday
+
+0 0 * * THU /path/to/script.sh
+
+3. At minute 0 past every hour from 9 through 17
+
+0 9-17 * * * /path/to/script.sh
+*	any value
+,	value list separator
+-	range of values
+/	step values
+
+       These special time specification "nicknames" which replace the 5
+       initial time and date fields, and are prefixed with the '@'
+       character, are supported:
+
+@reboot    :    Run once after reboot.
+@yearly    :    Run once a year, ie.  "0 0 1 1 *".
+@annually  :    Run once a year, ie.  "0 0 1 1 *".
+@monthly   :    Run once a month, ie. "0 0 1 * *".
+@weekly    :    Run once a week, ie.  "0 0 * * 0".
+@daily     :    Run once a day, ie.   "0 0 * * *".
+@hourly    :    Run once an hour, ie. "0 * * * *".
